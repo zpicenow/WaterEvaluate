@@ -85,14 +85,39 @@ void carlson(double TP) {
         printf("无效的输入值\n");
     }
 }
+// 多参数营养状况指数法
+void yoshimi(double TP,double Chl,double SD){
+    double STSITP = 7.67 * log(log(TP+0.025)+1.7)+7.21;
+    double STSIChl = 3.05* log(Chl+0.5)+0.95;
+    double STSISD = 4.82*log(SD)+5.66;
+    double MTSI = ( STSITP + STSIChl + STSISD)/3;
+    if (MTSI < 1) {
+        printf("根据多参数营养状况指数法判断该水体属于极贫营养型\n");
+    } else if (MTSI >= 1 && MTSI < 3) {
 
+        printf("根据多参数营养状况指数法判断该水体属于贫营养型\n");
+    } else if (MTSI >= 2 && MTSI < 5) {
+
+        printf("根据多参数营养状况指数法判断该水体属于中营养型\n");
+
+    } else if (MTSI >= 4 && MTSI < 7) {
+
+        printf("根据多参数营养状况指数法判断该水体属于富营养型\n");
+
+    } else if (MTSI >= 7 && MTSI < 10) {
+
+        printf("根据多参数营养状况指数法判断该水体属于极富营养型\n");
+
+    }else {
+        printf("无效的输入值\n");
+    }
+}
 
 int main() {
-    int choice = 1;
-    double green, drum, blue, si, euglena, P, Rp, TP;
-    printf("=========================水体富营养化评价=================================\n1, 根据复合藻类指标判断\n2, 根据绿藻类指标判断\n3, 根据营养复合法判断\n4, 根据营养状况指数法判断\n====================================================================\n请输入您的选择");
+    int choice = -1;
+    double green, drum, blue, si, euglena, P, Rp, TP,Chla,SD;
+    printf("=========================水体富营养化评价=================================\n1, 根据复合藻类指标判断\n2, 根据绿藻类指标判断\n3, 根据营养复合法判断\n4, 根据营养状况指数法判断\n5, 根据多参数营养状况指数法判断\n==========================================================================\n请输入您的选择: ");
     scanf("%d", &choice);
-    getchar();
     switch (choice) {
         case 1:
             printf("请输入绿藻种数： ");
@@ -125,6 +150,15 @@ int main() {
             printf("请输入总磷浓度（mg/M3）： ");
             scanf("%lf", &TP);
             carlson(TP);
+            break;
+        case 5:
+            printf("请输入总磷浓度（mg/M3）： ");
+            scanf("%lf", &TP);
+            printf("请输入叶绿素含量（mg/M3）： ");
+            scanf("%lf", &Chla);
+            printf("请输入萨氏盘透明度（m）： ");
+            scanf("%lf", &SD);
+            yoshimi(TP,Chla,SD);
             break;
 
         default:
